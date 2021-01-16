@@ -8,9 +8,11 @@
 %%      2. 3D case
 clear all;
 clc;
-
+addpath Solver
 addpath './result';
-
+addpath './Solver';
+addpath './special function';
+addpath './differential operator';
 %% TGV origional paper
 %% 
 %% 
@@ -39,6 +41,12 @@ noised = f + para.noisesigma*randn(para.size1,para.size2);
 
 %% Solver 
 u =  TGVSolver(noised,para);
+
+% u = PreDouglasL1(noised,para);
+
+% u = PreDouglasL2(noised,para);
+
+% u = SemiNewton(noised,para);
 
 %%
 subplot(1,3,1);
