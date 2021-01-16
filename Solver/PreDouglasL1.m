@@ -12,12 +12,10 @@ barq_k = sym_grad(f,para);
 w_k = div(barq_k,2);
 barp_k = w_k;
 
-para.sigma = 0.01;
-para.tau = 0.005;
-para.InnerIter = 500;
 iter = 0;
-
-while iter < para.InnerIter
+error = 1;
+while iter < para.InnerIter && error > para.toler
+    temp = u_k;
     iter = iter +1;
     bu_k = para.sigma*(f + div(barp_k,1));
     bw_k = para.sigma*((barp_k + div(barq_k,2)));
@@ -28,9 +26,9 @@ while iter < para.InnerIter
     barp_k = barp_k + p_test - p_k;
     q_test = P(2*q_k - barq_k,para.alpha0,2);
     barq_k = barq_k + q_test - q_k;
-    
+    error = norm(u_k - temp)/norm(temp);
 end
-
+    u = u_k;
 
 
 
